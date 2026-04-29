@@ -384,7 +384,8 @@ export default function App() {
             patient_data: { ...patientData, location: userLocation },
             image_base64: imageBase64
         };
-        const res = await axios.post('http://localhost:8000/api/generate-interview', payload, { timeout: 120000 });
+        const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await axios.post(`${API_BASE_URL}/api/generate-interview`, payload, { timeout: 120000 });
         setInterviewData(res.data.questions || []);
         clearTimeout(timer);
       } catch (err) {
@@ -414,7 +415,8 @@ export default function App() {
             symptoms: { symptoms, description, patient_data: { ...patientData, location: userLocation }, image_base64: imageBase64 },
             answers: { answers }
         };
-        const res = await axios.post('http://localhost:8000/api/predict', payload, { timeout: 120000 });
+        const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await axios.post(`${API_BASE_URL}/api/predict`, payload, { timeout: 120000 });
         setResults(res.data);
         clearTimeout(timer);
       } catch (err) {
